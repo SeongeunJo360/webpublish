@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Airbnb Clone</title>
+  <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+
+<!-- ✅ Header -->
+<header class="header">
+  <div class="logo">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/Airbnb_Logo_Bélo.svg" alt="airbnb" height="30">
+  </div>
+
+  <nav class="header-menu">
+    <a href="#"><img src="https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-search-bar-icons/original/4aae4ed7-5939-4e76-b100-e69440ebeae4.png" alt="숙소">숙소</a>
+    <a href="#"><img src="https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-search-bar-icons/original/e47ab655-027b-4679-b2e6-df1c99a5c33d.png" alt="체험">체험</a>
+    <a href="#"><img src="https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-search-bar-icons/original/3d67e9a9-520a-49ee-b439-7b3a75ea814d.png" alt="서비스">서비스</a>
+  </nav>
+
+  <div class="nav-right">
+    <span class="host">호스팅 하기</span>
+    <button class="icon-btn">🌐</button>
+    <button class="icon-btn">☰</button>
+  </div>
+</header>
+
+<!-- ✅ Search Bar -->
+<section id="search-bar">
+  <div class="search-box">
+    <div class="search-item">
+      <strong>여행지</strong>
+      <span>여행지 검색</span>
+    </div>
+    <div class="divider"></div>
+    <div class="search-item">
+      <strong>체크인</strong>
+      <span>날짜 추가</span>
+    </div>
+    <div class="divider"></div>
+    <div class="search-item">
+      <strong>체크아웃</strong>
+      <span>날짜 추가</span>
+    </div>
+    <div class="divider"></div>
+    <div class="search-item">
+      <strong>여행자</strong>
+      <span>게스트 추가</span>
+    </div>
+    <button class="search-btn">🔍</button>
+  </div>
+</section>
+
+<!-- ✅ 숙소 카드 섹션 -->
+<main class="content">
+  <h2>파리의 인기 숙소</h2>
+  <div class="card-list">
+    <div class="card">
+      <img src="https://a0.muscache.com/im/pictures/miso/Hosting-123456/original.jpg" alt="숙소1">
+      <div class="card-info">
+        <h3 class="card-title">노트르담의 방</h3>
+        <p class="card-desc">₩159,493 · ★4.93</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://a0.muscache.com/im/pictures/miso/Hosting-654321/original.jpg" alt="숙소2">
+      <div class="card-info">
+        <h3 class="card-title">라탱 지구의 방</h3>
+        <p class="card-desc">₩228,548 · ★4.98</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ✅ Footer -->
+<footer id="footer">
+  <p>© 2025 Airbnb, Inc.</p>
+</footer>
+
+</body>
+</html>

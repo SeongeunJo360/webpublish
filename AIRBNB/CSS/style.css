@@ -1,0 +1,311 @@
+/* 기본 세팅 */
+body {
+  margin: 0;
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #fff;
+  color: #222;
+}
+
+/* 헤더 전체 */
+ .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 40px;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1000;
+  border-bottom: 1px solid #eee;
+} 
+
+/* 로고 */
+.logo img {
+  height: 30px;
+}
+
+/* 메뉴 */
+.header-menu {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin-left: 40px;
+}
+.header-menu a{
+    display: flex;
+    align-items: center;
+}
+
+ .header-menu a img {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 10px;
+  border-radius: 8px;
+  width: 100px;
+} 
+
+ .header-menu a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 1px 1px;
+  border-radius: 8px;
+} 
+
+.header-menu a:hover {
+  background-color: #f7f7f7;
+}
+
+/* 우측 아이콘 */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.font-btn {
+  border: none;
+  background: none;
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 999px;
+}
+
+.font-btn:hover {
+  background-color: #f7f7f7;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  border: 2px solid transparent;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 6px;
+  transition: border 0.2s ease, background-color 0.2s ease;
+}
+
+.icon-btn:hover {
+  border: 2px solid #f7f7f7;
+}
+
+/* 검색 바 */
+#search-bar {
+  padding: 20px 50px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: static;
+  top: 72px;
+  z-index: 999;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  overflow: hidden;
+  /* box-shadow: 0 1px 4px rgba(0,0,0,0.1); */
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.search-item {
+  flex: 1;
+  padding: 12px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-item strong {
+  font-size: 12px;
+}
+
+.search-item span {
+  font-size: 14px;
+  color: #666;
+}
+
+.divider {
+  width: 1px;
+  height: 40px;
+  background: #ddd;
+}
+
+.search-btn {
+  background: #ff385c;
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 50%;
+  margin-right: 10px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* 숙소 카드 */
+.content {
+  padding: 40px;
+}
+
+.card-carousel {
+  display: flex;
+  gap: 8px;
+}
+
+.card-container {
+  overflow: hidden;
+  width: 100%;
+}
+
+.card-list {
+    display: flex;
+    gap: 1px;
+    padding: 0 12px;
+}
+
+.card {
+  flex: 0 0 300px; /* 카드 너비 */
+  margin: 0 10px;
+  background: none;
+  padding: 1px;
+  box-sizing: border-box;
+}
+
+.arrow {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card img {
+  width: 75%;
+  height: auto;
+  border-radius: 20px;
+}
+
+.card-info {
+  padding-top: 8px;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.card-desc {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #777;
+}
+
+/* ✅ 푸터 */
+.footer {
+  background-color: #f9f9f9;
+  padding: 40px 80px;
+  font-family: sans-serif;
+  font-size: 14px;
+  color: #222;
+}
+
+.footer-title {
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+.footer-title h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.footer-arrows {
+  display: flex;
+  justify-content: flex-start; /* 왼쪽 정렬 */
+  gap: 10px; /* 버튼 사이 간격 */
+  margin-bottom: 24px;
+}
+
+.arrow-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #222;
+  width: 32px;
+  height: 32px;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 20px;
+}
+
+.footer-column h4 {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column li {
+  margin-bottom: 8px;
+  cursor: pointer;
+  color: #555;
+}
+
+.footer-column li:hover {
+  text-decoration: underline;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: #888;
+}
+
+.footer-left a {
+  color: #888;
+  text-decoration: none;
+  margin-right: 8px;
+}
+
+.footer-left a:hover {
+  text-decoration: underline;
+}
+
+.footer-right span {
+  margin-left: 12px;
+  cursor: pointer;
+}
