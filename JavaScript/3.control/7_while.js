@@ -6,11 +6,12 @@
  */
 
 //1 ~ 10까지 출력
+//5까지 출력하고 종료
 let i = 1;
 while(i<=10) {
     if(i === 6) break;
-    console.log(`i = ${i}`);    
-    i++;
+    console.log(`i = ${i}`);   
+    i++; 
 }
 
 //메뉴 선택
@@ -19,13 +20,13 @@ let menu = 1;
 while(flag) {
     console.log(`0:🍎, 1:🍏, 2:🍋`);
     if(menu === 0) {
-        console.log('🍎');
-        flag = false;
-    } else if (menu === 1) {
-        console.log('🍏');
-        flag = false;
-    } else if (menu === 2) {
-        console.log('🍋');
-        flag = false;        
-    }
+        console.log('🍎');  
+        flag = false;      
+    } else if(menu === 1) {
+        console.log('🍏');   
+        flag = false;     
+    } else if(menu === 2) {
+        console.log('🍋');  
+        flag = false;      
+    }    
 }
