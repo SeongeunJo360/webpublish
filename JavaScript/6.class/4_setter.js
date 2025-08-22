@@ -8,17 +8,26 @@ class Employee {
         this.age = age;
     }
 
-    setEmpno = () => { this.#empno = empno; }
-    setName = () => { this.name = name; }
-    setAge = () => { this.age =age; }
+    setEmpno = (empno) => { this.#empno = empno; }
+    setName = (name) => { this.name = name; }
+    setAge = (age) => { this.age = age; }
 
-    getEmpno = () => this.#empno;
+    getEmpno = () => this.#empno; 
     getName = () => this.name;
     getAge = () => this.age;
 
     display = () => {
-        console.log(this.#empno, this.name, this.age);
+        console.log(this.#empno, this.name, this.age);        
     }
+
+    getObject = () => { 
+        return {
+            empno: this.#empno, 
+            name: this.name, 
+            age: this.age
+        }
+    }
+
 }
 
 let hong = new Employee('E0001', '홍길동', 20);
