@@ -1,9 +1,9 @@
-import { Login } from './components/form/Login.jsx';
+import { Signup } from './components/form/Signup.jsx';
 
 export default function App() {
     return (
         <>
-            <Login />
+            <Signup />
         </>
     );
 }
