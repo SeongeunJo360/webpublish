@@ -1,147 +1,121 @@
-import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
-import "../styles/cart.css";
-import "../styles/checkoutinfo.css";
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import { axiosData } from '../utils/dataFetch.js';
+import { cartItemsAddInfo, getTotalPrice } from '../utils/cart.js';
+import '../styles/cart.css';
 
-export function CheckoutInfo() {   
-    const { state } = useLocation();
-    const [orderList, setOrderList] = useState(state.cartList);
-    console.log('state==>> ', state);
+export function Cart({ items, updateCart }) {
+    const navigate = useNavigate();
+    const [cartList, setCartList] = useState([]);
+    const [totalPrice, setTotalPrice] = useState(0);   
     
+    useEffect(()=> {
+        const fetch = async() => {
+            const jsonData = await axiosData("/data/products.json");
+            setCartList(cartItemsAddInfo(jsonData, items));
+            setTotalPrice(getTotalPrice(jsonData, items));
+        }
+        fetch();
+    }, []);    
 
-return (
-    <div className="cart-container">
-    <h2 className="cart-header"> 주문/결제</h2>
-    <div className="section">
-        {/* 구매자 정보 */}
-        <h2 className="section-title">구매자정보</h2>
-        <div className="info-box">
-        <div className="info-grid">
-            <div className="label">이름</div>
-            <div className="value">홍길동</div>
+    //수량 업데이트 함수
+    const handleUpdateCartList = (cid, type) => {
+        setCartList((cartList) => cartList.map((item) => 
+                item.cid === cid ?
+                    type === '+'? {...item, qty: item.qty+1}   
+                                : item.qty > 1 ? {...item, qty: item.qty-1} : item
+                :   item  
+        ));
 
-            <div className="label">이메일</div>
-            <div className="value">hong@naver.com</div>
+        const findItem = cartList.find((item) => item.cid === cid);
+        type === '+'?  setTotalPrice(totalPrice + findItem.price) 
+                        : findItem.qty > 1 ? setTotalPrice(totalPrice-findItem.price)
+                                        : setTotalPrice(totalPrice);
+        updateCart(cid, type);
+    }
 
-            <div className="label">휴대폰 번호</div>
-            <div className="value phone-input">
-            <input type="text" value="010-1234-1234"/>
-            <button className="btn">수정</button>
-            </div>
-        </div>
-        </div>
-    </div>
-    {/* 받는사람 정보 */}
-    <div className="section">
-        <h2 className="section-title">
-        받는사람정보 &nbsp;&nbsp;&nbsp;
-        <button>배송지 변경</button>
-        </h2>
-        <div className="info-box">
-        <div className="info-grid">
-            <div className="label">이름</div>
-            <div className="value">홍길동</div>
+    //장바구니 아이템 삭제 함수
+    const handleRemoveCartList = (cid) => {
+        const findItem = cartList.find(item => item.cid === cid);
+        setTotalPrice(totalPrice - (findItem.qty * findItem.price));
 
-            <div className="label">배송주소</div>
-            <div className="value">12345 / 서울시 강남구 역삼동 123</div>
-          
-            <div className="label">연락처</div>
-            <div className="value">010-1234-1234</div>
+        setCartList((cartList) => {
+            return cartList.filter(item => !(item.cid === cid));  
+        });
 
-            <div className="label">배송 요청사항</div>
-            <div className="value phone-input">
-            <input type="text" defaultValue="문 앞" />
-            <button className="btn">변경</button>
-            </div>
-        </div>
-        </div>
-    </div>
+        updateCart(cid);
+    }
 
-    {/* 주문 정보 */}
-    <div className="section">
-        <h2 className="section-title">주문 상품</h2>
-        <div className="info-box">
-        <div className="info-grid">
-            { orderList && orderList.map(item => 
+    return (
+        <div className='cart-container'>
+            <h2 className='cart-header'>장바구니</h2>
+            { cartList && cartList.map(item => 
+                <div key={item.pid}>
+                    <div className='cart-item'>
+                        <img src={item.image} alt="product img" />
+                        <div className='cart-item-details'>
+                            <p className='cart-item-title'>{item.name}</p>
+                            <p className='cart-item-title'>{item.size}</p>
+                            <p className='cart-item-price'>
+                                {parseInt(item.price).toLocaleString()}원</p>
+                        </div>
+                        <div className='cart-quantity'>
+                            <button type='button'
+                                    onClick={()=>{ item.qty > 1 &&
+                                                    handleUpdateCartList(item.cid, '-')}}>-</button>
+                            <input type='text' value={item.qty} readOnly/>
+                            <button type='button'
+                                    onClick={()=>{handleUpdateCartList(item.cid, '+')}}>+</button>
+                        </div>
+                        <button className='cart-remove'
+                                onClick={()=>{handleRemoveCartList(item.cid)}}>
+                            <RiDeleteBin6Line />
+                        </button>
+                    </div>
+                </div>    
+            )}
+
+            {/* 주문 버튼 출력 */}
+            { cartList && cartList.length > 0 ?
                 <>
-                    <div className="label">상품명</div>
-                    <div className="value">
-                        <img src={item.image} alt="product image" style={{width:'35px'}} />
-                        {item.name}, {item.info}, 수량({item.qty}), 가격({item.price.toLocaleString()}원)
+                    <div className='cart-summary'>
+                        <h3>주문 예상 금액</h3>
+                        <div className='cart-summary-sub'>
+                            <p className='cart-total'>
+                                <label>총 상품 가격 : </label>
+                                <span>{totalPrice.toLocaleString()}원</span>
+                            </p>
+                            <p className='cart-total'>
+                                <label>총 할인 가격 : </label>
+                                <span>0원</span>
+                            </p>
+                            <p className='cart-total'>
+                                <label>총 배송비 : </label>
+                                <span>0원</span>
+                            </p>
+                        </div>
+                        <p className='cart-total2'>
+                            <label>총 금액 : </label>
+                            <span>{totalPrice.toLocaleString()}원</span>
+                        </p>
+                    </div>
+                    <div className='cart-actions'>
+                        <button type='button'
+                                onClick={()=>{
+                                    navigate("/checkout", {state: {cartList: cartList, 
+                                                                   totalPrice: totalPrice}});
+                                }}>주문하기</button>
                     </div>
                 </>
-            )}
+              :  <div>
+                    <p> 장바구니에 담은 상품이 없습니다. &nbsp;&nbsp;&nbsp;&nbsp;
+                        <Link to="/all">상품보러가기</Link>
+                    </p>
+                    <img src="/images/cart.jpg" 
+                         style={{width:"50%", marginTop:"20px"}} />
+                </div>
+            }
         </div>
-        </div>
-    </div>
-
-    <div class="section">
-        <h2>결제정보</h2>
-        <table class="payment-table">
-        <tr>
-            <td>총상품가격</td>
-            <td class="price">{state.totalPrice.toLocaleString()}원</td>
-        </tr>
-        <tr>
-            <td>즉시할인</td>
-            <td class="discount">-0원</td>
-        </tr>
-        <tr>
-            <td>할인쿠폰</td>
-            <td class="coupon">
-            0원 <span class="info">적용 가능한 할인쿠폰이 없습니다.</span>
-            </td>
-        </tr>
-        <tr>
-            <td>배송비</td>
-            <td class="price">0원</td>
-        </tr>
-        <tr>
-            <td>쿠페이캐시</td>
-            <td class="price">
-            0원 <span class="info">보유 : 0원</span>
-            </td>
-        </tr>
-        <tr class="total">
-            <td>총결제금액</td>
-            {/* <td class="total-price">{totalPrice.toLocaleString()}원</td> */}
-        </tr>
-        </table>
-    </div>
-
-    <div class="section">
-        <h2>결제 수단</h2>
-        <div class="payment-method">
-            <label class="radio-label">
-                <input type="radio" name="payment" checked /> 카카오페이
-                <span class="badge">최대 캐시적립</span>
-            </label>
-        </div>
-
-        <div class="payment-method">
-        <label class="radio-label">
-            <input type="radio" name="payment" />
-            쿠페이 머니 
-        </label>
-        </div>
-
-        <div class="payment-method">
-        <label class="radio-label">
-            <input type="radio" name="payment" />
-            다른 결제 수단 <span class="arrow">▼</span>
-        </label>
-        </div>
-    </div>
-
-    <div class="terms">
-        <input type="checkbox" id="terms"/>
-        <label for="terms">구매조건 확인 및 결제대행 서비스 약관 동의</label>
-        <br />
-        <input type="checkbox" id="privacy" />
-        <label for="privacy">개인정보 국외 이전 동의</label>
-    </div>
-
-    <button className="pay-button">결제하기</button>
-    </div>
-);
+    );
 }
