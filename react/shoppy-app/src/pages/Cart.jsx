@@ -53,6 +53,7 @@ export function Cart({ items, updateCart }) {
             { cartList && cartList.map(item => 
                 <div key={item.pid}>
                     <div className='cart-item'>
+                        {item.cid}
                         <img src={item.image} alt="product img" />
                         <div className='cart-item-details'>
                             <p className='cart-item-title'>{item.name}</p>
@@ -119,3 +120,4 @@ export function Cart({ items, updateCart }) {
         </div>
     );
 }
+  
