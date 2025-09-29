@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from './pages/Layout.jsx';
 import { Products } from './pages/Products.jsx';
@@ -10,8 +9,8 @@ import { Cart } from './pages/Cart.jsx';
 import { CheckoutInfo } from './pages/CheckoutInfo.jsx';
 import { Support } from './pages/Support.jsx';
 import { CartProvider } from './context/CartContext.js';
-
-import { cartItemsCheck, updateCartItemsQty } from './utils/cart.js';
+import { AuthProvider } from './context/AuthContext.js';
+import { ProectedPageRoute } from './pages/ProectedPageRoute.js';
 
 import './styles/cgvSignup.css';
 import './styles/cgv.css';
@@ -19,36 +18,8 @@ import './styles/commons.css';
 import './styles/shoppy.css';
 
 export default function App() {
-  const [cartCount, setCartCount] = useState(0);  //1. 장바구니 수량 관리  
-  const [cartItems, setCartItems] = useState([]); //2. 장바구니 아이템 관리
-  
-  // const addCart = (cartItem) => {  // <-- ProductDetail 쇼핑백 추가 이벤트 처리
-  //   setCartItems(cartItemsCheck(cartItems, cartItem));
-  //   setCartCount(cartCount + 1);
-  // }
-
-  const updateCart = (cid, type) => {
-    // console.log(cid, type);
-    if(type === undefined) {
-        const findItem = cartItems.find(item => item.cid === cid);
-        setCartCount(cartCount - findItem.qty);
-
-        setCartItems((cartItems) => {
-            return cartItems.filter(item => !(item.cid === cid));  
-        });
-
-    } else {
-      setCartItems(updateCartItemsQty(cartItems, cid, type));
-      type === "+" ? setCartCount(cartCount + 1) 
-                : cartCount > 1 ? setCartCount(cartCount - 1) : setCartCount(cartCount);
-    }
-  }
-
-  console.log('cartItems-->', cartItems);
-  
-  
-
   return (
+    <AuthProvider>
     <CartProvider>
     <BrowserRouter>
       <Routes>
@@ -57,20 +28,26 @@ export default function App() {
           <Route path="/all" element={<Products/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/signup" element={<Signup/>} />
-          <Route path="/cart" element={<Cart 
-                                              updateCart={updateCart}/>} />
+          <Route path="/cart" element={
+            <ProectedPageRoute>
+              <Cart/>
+            </ProectedPageRoute>} />
           <Route path="/products/:pid" element={<ProductDetail />} />
-          <Route path="/checkout" element={<CheckoutInfo />} />
-          <Route path="/support" element={<Support />} />
+          <Route path="/checkout" 
+                 element={
+                            <ProectedPageRoute>
+                                <CheckoutInfo />
+                            </ProectedPageRoute>  } />
+                
+          <Route path="/support" element={
+            <ProectedPageRoute>
+              <Support />
+            </ProectedPageRoute>
+            } />
         </Route>
       </Routes>
     </BrowserRouter>
     </CartProvider>
+    </AuthProvider>
   );
 }
-
-
-
-
-
-
