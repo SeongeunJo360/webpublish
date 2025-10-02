@@ -175,7 +175,7 @@ export function ReviewListItem() {
             <div className='pdt_review_detail'>
                 <p className='pdt_review_text'>
                     사진보다 색이 연해서 더 맘에드네요.
-                    옷은무겁습니다 .
+                    옷은 무겁습니다 .
                     두꺼워서 따뜻하겠어요
                 </p>
             </div>
